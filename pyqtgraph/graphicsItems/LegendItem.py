@@ -70,15 +70,17 @@ class LegendItem(GraphicsWidget, GraphicsWidgetAnchor):
         title           The title to display for this item. Simple HTML allowed.
         ==============  ========================================================
         """
-        label = LabelItem(name)
+        label = LabelItem(name, justify='left')
         if isinstance(item, ItemSample):
             sample = item
         else:
             sample = ItemSample(item)        
         row = self.layout.rowCount()
         self.items.append((sample, label))
+        self.layout.setRowAlignment(row, QtCore.Qt.AlignLeft) #added
         self.layout.addItem(sample, row, 0)
-        self.layout.addItem(label, row, 1)
+        self.layout.addItem(LabelItem(''), row, 1) #space
+        self.layout.addItem(label, row, 2)
         self.updateSize()
     
     def removeItem(self, item):
